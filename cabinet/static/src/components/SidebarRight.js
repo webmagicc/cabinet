@@ -69,7 +69,7 @@ class SidebarRight extends Component{
               </h4>
 
               <div className="progress progress-xxs">
-                <div className="progress-bar progress-bar-danger" style="width: 70%"></div>
+                <div className="progress-bar progress-bar-danger" ></div>
               </div>
             </a>
           </li>
@@ -81,7 +81,7 @@ class SidebarRight extends Component{
               </h4>
 
               <div className="progress progress-xxs">
-                <div className="progress-bar progress-bar-success" style="width: 95%"></div>
+                <div className="progress-bar progress-bar-success" ></div>
               </div>
             </a>
           </li>
@@ -93,7 +93,7 @@ class SidebarRight extends Component{
               </h4>
 
               <div className="progress progress-xxs">
-                <div className="progress-bar progress-bar-warning" style="width: 50%"></div>
+                <div className="progress-bar progress-bar-warning" ></div>
               </div>
             </a>
           </li>
@@ -105,15 +105,18 @@ class SidebarRight extends Component{
               </h4>
 
               <div className="progress progress-xxs">
-                <div className="progress-bar progress-bar-primary" style="width: 68%"></div>
+                <div className="progress-bar progress-bar-primary" ></div>
               </div>
             </a>
           </li>
         </ul>
         
 
-      </div><div id="control-sidebar-theme-demo-options-tab" className="tab-pane active"><div><h4 className="control-sidebar-heading">Layout Options</h4><div className="form-group"><label className="control-sidebar-subheading"><input type="checkbox" data-layout="fixed" className="pull-right"> Fixed layout</label><p>Activate the fixed layout. You can't use fixed and boxed layouts together</p></div><div className="form-group"><label className="control-sidebar-subheading"><input type="checkbox" data-layout="layout-boxed" className="pull-right"> Boxed Layout</label><p>Activate the boxed layout</p></div><div className="form-group"><label className="control-sidebar-subheading"><input type="checkbox" data-layout="sidebar-collapse" className="pull-right"> Toggle Sidebar</label><p>Toggle the left sidebar's state (open or collapse)</p></div><div className="form-group"><label className="control-sidebar-subheading"><input type="checkbox" data-enable="expandOnHover" className="pull-right"> Sidebar Expand on Hover</label><p>Let the sidebar mini expand on hover</p></div><div className="form-group"><label className="control-sidebar-subheading"><input type="checkbox" data-controlsidebar="control-sidebar-open" className="pull-right"> Toggle Right Sidebar Slide</label><p>Toggle between slide over content and push content effects</p></div><div className="form-group"><label className="control-sidebar-subheading"><input type="checkbox" data-sidebarskin="toggle" className="pull-right"> Toggle Right Sidebar Skin</label><p>Toggle between dark and light skins for the right sidebar</p></div><h4 className="control-sidebar-heading">Skins</h4><ul className="list-unstyled clearfix"><li style="float:left; width: 33.33333%; padding: 5px;"><a href="javascript:void(0)" data-skin="skin-blue" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" className="clearfix full-opacity-hover"><div><span style="display:block; width: 20%; float: left; height: 7px; background: #367fa9"></span><span className="bg-light-blue" style="display:block; width: 80%; float: left; height: 7px;"></span></div><div><span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span><span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span></div></a><p className="text-center no-margin">Blue</p></li><li style="float:left; width: 33.33333%; padding: 5px;"><a href="javascript:void(0)" data-skin="skin-black" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" className="clearfix full-opacity-hover"><div style="box-shadow: 0 0 2px rgba(0,0,0,0.1)" className="clearfix"><span style="display:block; width: 20%; float: left; height: 7px; background: #fefefe"></span><span style="display:block; width: 80%; float: left; height: 7px; background: #fefefe"></span></div><div><span style="display:block; width: 20%; float: left; height: 20px; background: #222"></span><span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span></div></a><p className="text-center no-margin">Black</p></li><li style="float:left; width: 33.33333%; padding: 5px;"><a href="javascript:void(0)" data-skin="skin-purple" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" className="clearfix full-opacity-hover"><div><span style="display:block; width: 20%; float: left; height: 7px;" className="bg-purple-active"></span><span className="bg-purple" style="display:block; width: 80%; float: left; height: 7px;"></span></div><div><span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span><span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span></div></a><p className="text-center no-margin">Purple</p></li><li style="float:left; width: 33.33333%; padding: 5px;"><a href="javascript:void(0)" data-skin="skin-green" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" className="clearfix full-opacity-hover"><div><span style="display:block; width: 20%; float: left; height: 7px;" className="bg-green-active"></span><span className="bg-green" style="display:block; width: 80%; float: left; height: 7px;"></span></div><div><span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span><span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span></div></a><p className="text-center no-margin">Green</p></li><li style="float:left; width: 33.33333%; padding: 5px;"><a href="javascript:void(0)" data-skin="skin-red" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" className="clearfix full-opacity-hover"><div><span style="display:block; width: 20%; float: left; height: 7px;" className="bg-red-active"></span><span className="bg-red" style="display:block; width: 80%; float: left; height: 7px;"></span></div><div><span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span><span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span></div></a><p className="text-center no-margin">Red</p></li><li style="float:left; width: 33.33333%; padding: 5px;"><a href="javascript:void(0)" data-skin="skin-yellow" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" className="clearfix full-opacity-hover"><div><span style="display:block; width: 20%; float: left; height: 7px;" className="bg-yellow-active"></span><span className="bg-yellow" style="display:block; width: 80%; float: left; height: 7px;"></span></div><div><span style="display:block; width: 20%; float: left; height: 20px; background: #222d32"></span><span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span></div></a><p className="text-center no-margin">Yellow</p></li><li style="float:left; width: 33.33333%; padding: 5px;"><a href="javascript:void(0)" data-skin="skin-blue-light" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" className="clearfix full-opacity-hover"><div><span style="display:block; width: 20%; float: left; height: 7px; background: #367fa9"></span><span className="bg-light-blue" style="display:block; width: 80%; float: left; height: 7px;"></span></div><div><span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span><span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span></div></a><p className="text-center no-margin" style="font-size: 12px">Blue Light</p></li><li style="float:left; width: 33.33333%; padding: 5px;"><a href="javascript:void(0)" data-skin="skin-black-light" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" className="clearfix full-opacity-hover"><div style="box-shadow: 0 0 2px rgba(0,0,0,0.1)" className="clearfix"><span style="display:block; width: 20%; float: left; height: 7px; background: #fefefe"></span><span style="display:block; width: 80%; float: left; height: 7px; background: #fefefe"></span></div><div><span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span><span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span></div></a><p className="text-center no-margin" style="font-size: 12px">Black Light</p></li><li style="float:left; width: 33.33333%; padding: 5px;"><a href="javascript:void(0)" data-skin="skin-purple-light" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" className="clearfix full-opacity-hover"><div><span style="display:block; width: 20%; float: left; height: 7px;" className="bg-purple-active"></span><span className="bg-purple" style="display:block; width: 80%; float: left; height: 7px;"></span></div><div><span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span><span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span></div></a><p className="text-center no-margin" style="font-size: 12px">Purple Light</p></li><li style="float:left; width: 33.33333%; padding: 5px;"><a href="javascript:void(0)" data-skin="skin-green-light" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" className="clearfix full-opacity-hover"><div><span style="display:block; width: 20%; float: left; height: 7px;" className="bg-green-active"></span><span className="bg-green" style="display:block; width: 80%; float: left; height: 7px;"></span></div><div><span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span><span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span></div></a><p className="text-center no-margin" style="font-size: 12px">Green Light</p></li><li style="float:left; width: 33.33333%; padding: 5px;"><a href="javascript:void(0)" data-skin="skin-red-light" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" className="clearfix full-opacity-hover"><div><span style="display:block; width: 20%; float: left; height: 7px;" className="bg-red-active"></span><span className="bg-red" style="display:block; width: 80%; float: left; height: 7px;"></span></div><div><span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span><span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span></div></a><p className="text-center no-margin" style="font-size: 12px">Red Light</p></li><li style="float:left; width: 33.33333%; padding: 5px;"><a href="javascript:void(0)" data-skin="skin-yellow-light" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" className="clearfix full-opacity-hover"><div><span style="display:block; width: 20%; float: left; height: 7px;" className="bg-yellow-active"></span><span className="bg-yellow" style="display:block; width: 80%; float: left; height: 7px;"></span></div><div><span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc"></span><span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span></div></a><p className="text-center no-margin" style="font-size: 12px">Yellow Light</p></li></ul></div></div>
+      </div>
       
+      
+      
+
       
       <div className="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
       
@@ -124,7 +127,7 @@ class SidebarRight extends Component{
           <div className="form-group">
             <label className="control-sidebar-subheading">
               Report panel usage
-              <input type="checkbox" className="pull-right" checked="">
+              <input type="checkbox" className="pull-right" checked=""/>
             </label>
 
             <p>
@@ -136,7 +139,7 @@ class SidebarRight extends Component{
           <div className="form-group">
             <label className="control-sidebar-subheading">
               Allow mail redirect
-              <input type="checkbox" className="pull-right" checked="">
+              <input type="checkbox" className="pull-right" checked=""/>
             </label>
 
             <p>
@@ -148,7 +151,7 @@ class SidebarRight extends Component{
           <div className="form-group">
             <label className="control-sidebar-subheading">
               Expose author name in posts
-              <input type="checkbox" className="pull-right" checked="">
+              <input type="checkbox" className="pull-right" checked=""/>
             </label>
 
             <p>
@@ -162,7 +165,7 @@ class SidebarRight extends Component{
           <div className="form-group">
             <label className="control-sidebar-subheading">
               Show me as online
-              <input type="checkbox" className="pull-right" checked="">
+              <input type="checkbox" className="pull-right" checked=""/>
             </label>
           </div>
           
@@ -170,7 +173,7 @@ class SidebarRight extends Component{
           <div className="form-group">
             <label className="control-sidebar-subheading">
               Turn off notifications
-              <input type="checkbox" className="pull-right">
+              <input type="checkbox" className="pull-right"/>
             </label>
           </div>
           

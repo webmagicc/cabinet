@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^$', profiles_views.HomeView.as_view()),
     url(r'^api/profiles/', include('profiles.api.urls')),
+    url(r'^api/customers/', include('customers.api.urls')),
 
     
 ]

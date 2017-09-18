@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Dashboard from './components/Dashboard';
 import Sidebar from './components/Sidebar';
 import SidebarRight from './components/SidebarRight';
 import { Provider } from 'react-redux';
@@ -22,12 +23,14 @@ ReactDOM.render(
 			<BrowserRouter>
 				<div>
 					<Header/>
+					<Sidebar/>
 					<Switch>
 						<Route path="/" component={Dashboard}/>
 					</Switch>
+					<SidebarRight/>
 					<Footer/>
 				</div>
 			</BrowserRouter>
 		</Provider>,
-		document.getElementById('gallery')
+		document.getElementById('app')
 	);

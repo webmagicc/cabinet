@@ -1,0 +1,11 @@
+webpackHotUpdate(0,{
+
+/***/ 234:
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: SyntaxError: Expected corresponding JSX closing tag for <li> (148:26)\n\n\u001b[0m \u001b[90m 146 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 147 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mspan\u001b[39m \u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mspan\u001b[39m\u001b[33m>\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 148 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mspan\u001b[39m \u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mspan\u001b[39m\u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mdiv\u001b[39m\u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33ma\u001b[39m\u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33mp\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"text-center no-margin\"\u001b[39m\u001b[33m>\u001b[39m\u001b[33mBlue\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mp\u001b[39m\u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mli\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m     | \u001b[39m                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 149 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mli\u001b[39m \u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33ma\u001b[39m href\u001b[33m=\u001b[39m\u001b[32m\"javascript:void(0)\"\u001b[39m data\u001b[33m-\u001b[39mskin\u001b[33m=\u001b[39m\u001b[32m\"skin-black\"\u001b[39m  className\u001b[33m=\u001b[39m\u001b[32m\"clearfix full-opacity-hover\"\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 150 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m  className\u001b[33m=\u001b[39m\u001b[32m\"clearfix\"\u001b[39m\u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33mspan\u001b[39m \u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mspan\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 151 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mspan\u001b[39m \u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mspan\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n");
+
+/***/ })
+
+})
+//# sourceMappingURL=0.7729c19a794b61dfa9a4.hot-update.js.map

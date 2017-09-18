@@ -5,7 +5,7 @@ class Sidebar extends Component{
 		return (
 				<aside className="main-sidebar">
     
-    <section className="sidebar" style="height: auto;">
+    <section className="sidebar" >
       
       <div className="user-panel">
         <div className="pull-left image">
@@ -19,7 +19,7 @@ class Sidebar extends Component{
       
       <form action="#" method="get" className="sidebar-form">
         <div className="input-group">
-          <input type="text" name="q" className="form-control" placeholder="Search...">
+          <input type="text" name="q" className="form-control" placeholder="Search..."/>
           <span className="input-group-btn">
                 <button type="submit" name="search" id="search-btn" className="btn btn-flat"><i className="fa fa-search"></i>
                 </button>

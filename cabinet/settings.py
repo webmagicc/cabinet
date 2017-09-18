@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'cabinet',
     'core',
     'profiles',
+    'customers',
     'webpack_loader',
     'rest_framework',
     'allauth',
