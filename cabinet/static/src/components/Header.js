@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {fetchUser} from '../actions/UserAction';
 
 class Header extends Component{
+  componentDidMount(){
+    
+    this.props.fetchUser();
+  }
 	render(){
 		return (
 				<header className="main-header">
@@ -217,7 +223,7 @@ class Header extends Component{
           <li className="dropdown user user-menu">
             <a href="#" className="dropdown-toggle" data-toggle="dropdown">
               <img src="/static/dist/img/user2-160x160.jpg" className="user-image" alt="User Image"/>
-              <span className="hidden-xs">Alexander Pierce</span>
+              <span className="hidden-xs">{this.props.user.email}</span>
             </a>
             <ul className="dropdown-menu">
               
@@ -225,7 +231,7 @@ class Header extends Component{
                 <img src="/static/dist/img/user2-160x160.jpg" className="img-circle" alt="User Image"/>
 
                 <p>
-                  Alexander Pierce - Web Developer
+                  {this.props.user.email}
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -267,4 +273,17 @@ class Header extends Component{
 	}
 }
 
-export default Header;
+
+function mapStateToProps (state) {
+  return {
+    user: state.user
+  }
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(fetchUser, dispatch)
+    };
+}
+
+export default connect(mapStateToProps,{fetchUser})(Header);
+

@@ -1,9 +1,11 @@
 import {combineReducers} from "redux";
-import UserReducer from './UserReducer'
+import UserReducer from './UserReducer';
+import ResourceReducer from './ResourceReducer';
 
 
 const rootReducer = combineReducers({
-  user:UserReducer
+  user:UserReducer,
+  resources:ResourceReducer
 });
 
 export default rootReducer;

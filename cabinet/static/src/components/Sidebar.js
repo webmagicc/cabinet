@@ -1,6 +1,34 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {fetchResources} from '../actions/CustomerAction';
+import bindActionCreators from 'redux';
+import { Link } from 'react-router-dom';
+
+
+
+
 
 class Sidebar extends Component{
+  constructor(props) {
+    
+    super(props);
+    this.renderResource = this.renderResource.bind(this);
+  }
+  componentDidMount(){
+    
+    this.props.fetchResources();
+  }
+  renderResource(){
+    console.log(this.props.resources.length)
+    if(this.props.resources.length > 0){
+      return this.props.resources.map(item => {
+        return (
+          <li key={item.id}><Link to={"/resource/"+item.id}><i className="fa fa-circle-o"></i> {item.domain}</Link></li>
+          )
+      })
+    }
+    
+  }
 	render(){
 		return (
 				<aside className="main-sidebar">
@@ -32,14 +60,14 @@ class Sidebar extends Component{
         <li className="header">MAIN NAVIGATION</li>
         <li className="active treeview menu-open">
           <a href="#">
-            <i className="fa fa-dashboard"></i> <span>Dashboard</span>
+            <i className="fa fa-dashboard"></i> <span>Ваши сайты</span>
             <span className="pull-right-container">
               <i className="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul className="treeview-menu">
-            <li className="active"><a href="index.html"><i className="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="index2.html"><i className="fa fa-circle-o"></i> Dashboard v2</a></li>
+
+            {this.renderResource()}
           </ul>
         </li>
         <li className="treeview">
@@ -206,4 +234,15 @@ class Sidebar extends Component{
 	}
 }
 
-export default Sidebar;
+function mapStateToProps (state) {
+  return {
+    resources: state.resources
+  }
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(fetchResources, dispatch)
+    };
+}
+
+export default connect(mapStateToProps,{fetchResources})(Sidebar);
