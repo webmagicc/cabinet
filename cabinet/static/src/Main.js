@@ -18,7 +18,6 @@ const createStoreMiddleware = applyMiddleware(promise)(createStore)
 
 
 ReactDOM.render(
-
 		<Provider store={createStoreMiddleware(rootReducer)}>
 			<BrowserRouter>
 				<div>

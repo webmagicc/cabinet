@@ -1,11 +1,11 @@
 from rest_framework import viewsets
-from .serialaizers import ResouceSerializer
+from .serializers import ResouceSerializer
 from customers.models import Resouce
 from core.permissions import IsOwnerOrReadOnly
 
 
 class ResouceViewSet(viewsets.ModelViewSet):
-	serializer_class = ResouceSerializer
+    serializer_class = ResouceSerializer
     queryset = Resouce.objects.all()
     permission_classes = (IsOwnerOrReadOnly,)
 
