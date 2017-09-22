@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import bindActionCreators from 'redux';
 import { Link } from 'react-router-dom';
+import {addResources} from '../../actions/CustomerAction'
 
 
 class Sites extends Component{
@@ -10,17 +11,11 @@ class Sites extends Component{
     super(props);
     this.renderResource = this.renderResource.bind(this);
     this.addSite = this.addSite.bind(this);
-    this.domainError = this.domainError.bind(this);
-  }
-  domainError(error=''){
-    console.log(error)
-    if(error==1){
-      this.domainError = "has-error";
-      return "has-error"
-    } else {
-      return ""
+    this.state = {
+      domainError:"",
     }
   }
+  
   addSite(){
     var domain = this.domainInput.value;
     
@@ -30,12 +25,36 @@ class Sites extends Component{
     domain = domain.replace(':','');
     domain = domain.replace('/','');
     if(!domain){
-      
-      this.domainError(1);
+      var newState = Object.assign(this.state,{domainError: 'has-error'})
+      this.setState(newState)
+      return false
+    } else {
+      var newState = Object.assign(this.state,{domainError: ''})
+      this.setState(newState)
     }
     var parts = domain.split('/')
     domain = parts[0]
-    this.domainInput.value = domain;
+    this.domainInput.value = domain
+    var platforms =[]
+    var platforms_ids = []
+    platforms = document.querySelectorAll('.chanel input[type=checkbox]:checked'); 
+    
+    if(platforms.length > 0){
+      for (var i = 0; i < platforms.length; ++i) {
+        platforms_ids.push(platforms[i].defaultValue);  
+      }
+    }
+    var csrfmiddlewaretoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    
+    var newSite = {
+      domain:domain,
+      platforms:platforms_ids,
+      csrfmiddlewaretoken:csrfmiddlewaretoken
+    }
+    this.props.addResources(newSite)
+    this.domainInput.value = ''
+
+
   }
 
   renderResource(){
@@ -99,7 +118,7 @@ class Sites extends Component{
                   <h4 className="modal-title">Добавить сайт</h4>
                 </div>
                 <div className="modal-body">
-                  <div className="form-group domain ">
+                  <div className={"form-group domain "+ this.state.domainError}>
                     <input name="domain" ref={(input) => { this.domainInput = input; }} type="text" className="form-control"  placeholder="vash-site.com.ua"/>
                     <span className="help-block">Введить только название домена без 
                     <b> http://</b> или <b>https://</b></span>
@@ -115,11 +134,13 @@ class Sites extends Component{
                     </div>
                     <div className="col-xs-6">
                       <label for="yandex">
-                        <input type="checkbox" id="yandex" name="yandex" value="1"/>
+                        <input type="checkbox" id="yandex" name="yandex" value="2"/>
                         Yandex Direct
                       </label>
                     </div>
                   </div>
+                  <div className="clearfix"></div>
+                  <br/>
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn  pull-left" data-dismiss="modal">Закрыть</button>
@@ -148,5 +169,5 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps,null)(Sites);
+export default connect(mapStateToProps,{addResources})(Sites);
 

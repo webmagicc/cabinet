@@ -13,6 +13,7 @@ class ResouceViewSet(viewsets.ModelViewSet):
         return super(ResouceViewSet, self).list(request)
 
     def create(self, request):
+        assert False, request.data['domain']
         return super(ResouceViewSet, self).create(request)
 
     def retrieve(self, request, pk=None):
