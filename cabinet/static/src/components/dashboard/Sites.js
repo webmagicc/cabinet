@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import bindActionCreators from 'redux';
+import {bindActionCreators} from 'redux';
 import { Link } from 'react-router-dom';
-import {addResources} from '../../actions/CustomerAction'
+import {addResources, fetchResources} from '../../actions/CustomerAction';
+import SuccessAlert from '../alerts/Success';
+import DangerAlert from '../alerts/Danger';
+import $ from "jquery";
+import ReactDOM from 'react-dom';
 
 
 class Sites extends Component{
@@ -51,14 +55,20 @@ class Sites extends Component{
       platforms:platforms_ids,
       csrfmiddlewaretoken:csrfmiddlewaretoken
     }
-    this.props.addResources(newSite)
+    
+    this.props.actions.addResources(newSite)
+    window.new_site = this.props.new_site
+    console.log(this.props)
+    
+    
     this.domainInput.value = ''
+    
 
 
   }
 
   renderResource(){
-    console.log(this.props.resources.length)
+    
     if(this.props.resources.length > 0){
       return this.props.resources.map((item,index) => {
         return (
@@ -118,6 +128,7 @@ class Sites extends Component{
                   <h4 className="modal-title">Добавить сайт</h4>
                 </div>
                 <div className="modal-body">
+                  <div id="alert-place"></div>
                   <div className={"form-group domain "+ this.state.domainError}>
                     <input name="domain" ref={(input) => { this.domainInput = input; }} type="text" className="form-control"  placeholder="vash-site.com.ua"/>
                     <span className="help-block">Введить только название домена без 
@@ -159,15 +170,16 @@ class Sites extends Component{
 
 
 function mapStateToProps (state) {
+  
   return {
-    resources: state.resources
+    resources:state.resources
   }
 }
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(fetchResources, dispatch)
+        actions: bindActionCreators({fetchResources, addResources}, dispatch)
     };
 }
 
-export default connect(mapStateToProps,{addResources})(Sites);
+export default connect(mapStateToProps,mapDispatchToProps)(Sites);
 
