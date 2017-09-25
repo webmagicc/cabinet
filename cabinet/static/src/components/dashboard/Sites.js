@@ -55,40 +55,68 @@ class Sites extends Component{
       platforms:platforms_ids,
       csrfmiddlewaretoken:csrfmiddlewaretoken
     }
+    var it = this
+    this.props.actions.addResources(newSite, it, function(res,it){
+      console.log("res ",res)
+      if(res.status == 201){
+        
+        window.hide_modal("#add-site")
+        it.props.actions.fetchResources()
+        
+        //it.renderResource()
+      } else if(res.status == 409){
+        $("#alert-place").html("")
+        console.log("409")
+        ReactDOM.render(
+          <DangerAlert 
+             title="Домен уже в системе"
+             text="Вы не можете добавить домен, потому что этот домен уже добавлен в систему"/>
+          ,getElementById('alert-place'))
+        setTimeout(function(){$("#alert-place").html("")},3000)
+      } else if(res.status == 500){
+        $("#alert-place").html("")
+        console.log("500")
+        ReactDOM.render(
+          <DangerAlert 
+             title="Ошибка сохранения"
+             text="Извините:( На сервере произошла ошибка, уведомление о ошибке отправленно специалистам"/>
+          ,getElementById('alert-place'))
+        setTimeout(function(){$("#alert-place").html("")},3000)
+      }
+    })
     
-    this.props.actions.addResources(newSite)
-    window.new_site = this.props.new_site
-    console.log(this.props)
     
     
-    this.domainInput.value = ''
+    
     
 
 
   }
 
   renderResource(){
-    
-    if(this.props.resources.length > 0){
-      return this.props.resources.map((item,index) => {
-        return (
-                <tr key={index}>
-                  <td>{index + 1}.</td>
-                  <td>
-                    <Link to={"/resource/"+item.id}>
-                      {item.domain}
-                    </Link>
-                  </td>
-                  <td>
-                    {item.pay_to}
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-          )
-      })
+    console.log("Render resources ",this.props)
+    if(this.props.resources){
+      if(this.props.resources.list){
+        console.log("List ",this.props.resources.list)
+        return this.props.resources.list.map((item,index) => {
+          return (
+                  <tr key={index}>
+                    <td>{index + 1}.</td>
+                    <td>
+                      <Link to={"/resource/"+item.id}>
+                        {item.domain}
+                      </Link>
+                    </td>
+                    <td>
+                      {item.pay_to}
+                    </td>
+                    <td>
+                    </td>
+                  </tr>
+            )
+        })
+      }
     }
-    
   }
   
 	render(){

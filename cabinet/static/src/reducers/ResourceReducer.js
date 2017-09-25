@@ -5,8 +5,8 @@ export default function(state={},action){
   
   switch (action.type) {
     case FETCH_RESOURCES:
-      return action.payload.data.results;
-      //return Object.assign({}, state,{'resources':action.payload.data.results})
+      //return action.payload.data.results;
+      return Object.assign({}, state,{'list':action.payload.data.results})
     case ADD_RESOURCES:
       //return action.payload;
       return Object.assign({}, state, {'new_site':action.payload})

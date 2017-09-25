@@ -11,7 +11,7 @@ export  function fetchResources(){
 	}
 }
 
-export  function addResources(newResource){
+export  function addResources(newResource, it, callback){
 	const request = axios({
 		method: 'post',
 		url:'/api/customers/resouce/',
@@ -20,7 +20,16 @@ export  function addResources(newResource){
         xsrfHeaderName: 'X-CSRFToken',
         headers: {'X-Requested-With': 'XMLHttpRequest',
                   'Content-Type': 'application/json; charset=UTF-8'}
-	})
+	}).then(response => callback(response,it))
+	.catch(function (error) {
+		if(error.indexOf('409')> -1)
+		{
+			callback({"status":409},it)
+		} else {
+			callback({"status":500},it)
+		}
+		
+	  });
 	
 
 	return {
