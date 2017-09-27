@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Link } from 'react-router-dom';
-import {addResources, fetchResources} from '../../actions/CustomerAction';
+import {addResources, fetchResources, delResources} from '../../actions/CustomerAction';
 import SuccessAlert from '../alerts/Success';
 import DangerAlert from '../alerts/Danger';
 import $ from "jquery";
@@ -15,8 +15,12 @@ class Sites extends Component{
     super(props);
     this.renderResource = this.renderResource.bind(this);
     this.addSite = this.addSite.bind(this);
+    this.deleteSite = this.deleteSite.bind(this);
     this.state = {
       domainError:"",
+      alertDangerState:"hidden",
+      alertTitle:"",
+      alertText:""
     }
   }
   
@@ -57,47 +61,63 @@ class Sites extends Component{
     }
     var it = this
     this.props.actions.addResources(newSite, it, function(res,it){
-      console.log("res ",res)
+      //console.log(res)
       if(res.status == 201){
-        
         window.hide_modal("#add-site")
         it.props.actions.fetchResources()
-        
-        //it.renderResource()
       } else if(res.status == 409){
-        $("#alert-place").html("")
-        console.log("409")
-        ReactDOM.render(
-          <DangerAlert 
-             title="Домен уже в системе"
-             text="Вы не можете добавить домен, потому что этот домен уже добавлен в систему"/>
-          ,getElementById('alert-place'))
-        setTimeout(function(){$("#alert-place").html("")},3000)
-      } else if(res.status == 500){
-        $("#alert-place").html("")
-        console.log("500")
-        ReactDOM.render(
-          <DangerAlert 
-             title="Ошибка сохранения"
-             text="Извините:( На сервере произошла ошибка, уведомление о ошибке отправленно специалистам"/>
-          ,getElementById('alert-place'))
-        setTimeout(function(){$("#alert-place").html("")},3000)
+        var new_state = {
+          alertDangerState:"",
+          alertTitle:"Внимание",
+          alertText:"Такой домен уже находится в системе"
+        };
+        var n = Object.assign({}, it.state, new_state);
+        it.setState(n);
+        setTimeout(function(){
+          var new_state = {
+          alertDangerState:"hidden",
+          alertTitle:"",
+          alertText:""
+        };
+        var n = Object.assign({}, it.state, new_state);
+        it.setState(n);
+        },3000);
+      } else if(res.status == 500){ 
+        var new_state = {
+          alertDangerState:"",
+          alertTitle:"Ошибка сервера",
+          alertText:"Произошла ошибка наши специалисты оповещены и вскоре проблема будет устранена"
+        };
+        var n = Object.assign({}, it.state, new_state);
+        it.setState(n);
+        setTimeout(function(){
+          var new_state = {
+          alertDangerState:"hidden",
+          alertTitle:"",
+          alertText:""
+        };
+        var n = Object.assign({}, it.state, new_state);
+        it.setState(n);
+        },3000);
       }
     })
-    
-    
-    
-    
-    
-
+  }
+  deleteSite(e){
+    var id = e.target.getAttribute('data');
+    var it = this;
+    this.props.actions.delResources(id, it, function(res,it){
+      if(res.status == 200){
+        it.props.actions.fetchResources()
+      }
+      
+    })
 
   }
 
   renderResource(){
-    console.log("Render resources ",this.props)
+    
     if(this.props.resources){
       if(this.props.resources.list){
-        console.log("List ",this.props.resources.list)
         return this.props.resources.list.map((item,index) => {
           return (
                   <tr key={index}>
@@ -111,6 +131,14 @@ class Sites extends Component{
                       {item.pay_to}
                     </td>
                     <td>
+                    <div className="btn-group">
+                      <button type="button" onClick={this.deleteSite} data={item.id} className="btn btn-default">
+                        <i data={item.id} className="fa fa-fw fa-close"></i>
+                      </button>
+                      <button type="button" className="btn btn-default">
+                        <i className="fa fa-fw fa-edit"></i>
+                      </button>
+                    </div>
                     </td>
                   </tr>
             )
@@ -135,7 +163,7 @@ class Sites extends Component{
                       <th >#</th>
                       <th>Домен</th>
                       <th>Оплачен до</th>
-                      <th>Label</th>
+                      <th>Действия</th>
                     </tr>
                     {this.renderResource()}
                   </tbody>
@@ -156,7 +184,14 @@ class Sites extends Component{
                   <h4 className="modal-title">Добавить сайт</h4>
                 </div>
                 <div className="modal-body">
-                  <div id="alert-place"></div>
+                  <div id="alert-place">
+                    <div className={"alert alert-danger alert-dismissible " + this.state.alertDangerState}>
+                        <button type="button" className="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i className="icon fa fa-ban"></i> {this.state.alertTitle}</h4>
+                        {this.state.alertText}
+                    </div>
+                    
+                  </div>
                   <div className={"form-group domain "+ this.state.domainError}>
                     <input name="domain" ref={(input) => { this.domainInput = input; }} type="text" className="form-control"  placeholder="vash-site.com.ua"/>
                     <span className="help-block">Введить только название домена без 
@@ -205,7 +240,7 @@ function mapStateToProps (state) {
 }
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({fetchResources, addResources}, dispatch)
+        actions: bindActionCreators({fetchResources, addResources, delResources}, dispatch)
     };
 }
 

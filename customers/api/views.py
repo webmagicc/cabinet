@@ -52,4 +52,15 @@ class ResouceViewSet(viewsets.ModelViewSet):
         return super(ResouceViewSet, self).partial_update(request,pk)
 
     def destroy(self, request, pk=None):
-        return super(ResouceViewSet, self).destroy(request,pk)
+        owner = request.user
+        obj = Resouce.objects.filter(pk=int(pk)).first()
+        if not obj:
+            content = {'status': '404'}
+            return Response(content, status=status.HTTP_404_NOT_FOUND)
+        if obj.owner != owner:
+            content = {'status': '406'}
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+        obj.delete()
+        content = {'status': '200'}
+        return Response(content, status=status.HTTP_200_OK)
+        

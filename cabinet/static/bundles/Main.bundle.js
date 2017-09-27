@@ -4519,6 +4519,7 @@ Object.defineProperty(exports, "__esModule", {
 var FETCH_USER = exports.FETCH_USER = 'FETCH_USER';
 var FETCH_RESOURCES = exports.FETCH_RESOURCES = 'FETCH_RESOURCES';
 var ADD_RESOURCES = exports.ADD_RESOURCES = 'ADD_RESOURCES';
+var DEL_RESOURCES = exports.DEL_RESOURCES = 'DEL_RESOURCES';
 
 /* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(12); if (makeExportsHot(module, __webpack_require__(1))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "constants.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
@@ -10881,6 +10882,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchResources = fetchResources;
 exports.addResources = addResources;
+exports.delResources = delResources;
 
 var _axios = __webpack_require__(118);
 
@@ -10913,6 +10915,8 @@ function addResources(newResource, it, callback) {
 	}).then(function (response) {
 		return callback(response, it);
 	}).catch(function (error) {
+		//console.log(error)
+		error = String(error);
 		if (error.indexOf('409') > -1) {
 			callback({ "status": 409 }, it);
 		} else {
@@ -10922,6 +10926,32 @@ function addResources(newResource, it, callback) {
 
 	return {
 		type: _constants.ADD_RESOURCES,
+		payload: request
+	};
+}
+
+function delResources(id, it, callback) {
+	var request = (0, _axios2.default)({
+		method: 'delete',
+		url: '/api/customers/resouce/' + id,
+		xsrfCookieName: 'csrftoken',
+		xsrfHeaderName: 'X-CSRFToken',
+		headers: { 'X-Requested-With': 'XMLHttpRequest',
+			'Content-Type': 'application/json; charset=UTF-8' }
+	}).then(function (response) {
+		return callback(response, it);
+	}).catch(function (error) {
+		//console.log(error)
+		error = String(error);
+		if (error.indexOf('409') > -1) {
+			callback({ "status": 409 }, it);
+		} else {
+			callback({ "status": 500 }, it);
+		}
+	});
+
+	return {
+		type: _constants.DEL_RESOURCES,
 		payload: request
 	};
 }
@@ -41875,8 +41905,12 @@ var Sites = function (_Component) {
 
     _this.renderResource = _this.renderResource.bind(_this);
     _this.addSite = _this.addSite.bind(_this);
+    _this.deleteSite = _this.deleteSite.bind(_this);
     _this.state = {
-      domainError: ""
+      domainError: "",
+      alertDangerState: "hidden",
+      alertTitle: "",
+      alertText: ""
     };
     return _this;
   }
@@ -41920,41 +41954,65 @@ var Sites = function (_Component) {
       };
       var it = this;
       this.props.actions.addResources(newSite, it, function (res, it) {
-        console.log("res ", res);
+        //console.log(res)
         if (res.status == 201) {
-
           window.hide_modal("#add-site");
           it.props.actions.fetchResources();
-
-          //it.renderResource()
         } else if (res.status == 409) {
-          (0, _jquery2.default)("#alert-place").html("");
-          console.log("409");
-          _reactDom2.default.render(_react2.default.createElement(_Danger2.default, {
-            title: '\u0414\u043E\u043C\u0435\u043D \u0443\u0436\u0435 \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0435',
-            text: '\u0412\u044B \u043D\u0435 \u043C\u043E\u0436\u0435\u0442\u0435 \u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0434\u043E\u043C\u0435\u043D, \u043F\u043E\u0442\u043E\u043C\u0443 \u0447\u0442\u043E \u044D\u0442\u043E\u0442 \u0434\u043E\u043C\u0435\u043D \u0443\u0436\u0435 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0443' }), getElementById('alert-place'));
+          var new_state = {
+            alertDangerState: "",
+            alertTitle: "Внимание",
+            alertText: "Такой домен уже находится в системе"
+          };
+          var n = Object.assign({}, it.state, new_state);
+          it.setState(n);
           setTimeout(function () {
-            (0, _jquery2.default)("#alert-place").html("");
+            var new_state = {
+              alertDangerState: "hidden",
+              alertTitle: "",
+              alertText: ""
+            };
+            var n = Object.assign({}, it.state, new_state);
+            it.setState(n);
           }, 3000);
         } else if (res.status == 500) {
-          (0, _jquery2.default)("#alert-place").html("");
-          console.log("500");
-          _reactDom2.default.render(_react2.default.createElement(_Danger2.default, {
-            title: '\u041E\u0448\u0438\u0431\u043A\u0430 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F',
-            text: '\u0418\u0437\u0432\u0438\u043D\u0438\u0442\u0435:( \u041D\u0430 \u0441\u0435\u0440\u0432\u0435\u0440\u0435 \u043F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430, \u0443\u0432\u0435\u0434\u043E\u043C\u043B\u0435\u043D\u0438\u0435 \u043E \u043E\u0448\u0438\u0431\u043A\u0435 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043D\u043E \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u0438\u0441\u0442\u0430\u043C' }), getElementById('alert-place'));
+          var new_state = {
+            alertDangerState: "",
+            alertTitle: "Ошибка сервера",
+            alertText: "Произошла ошибка наши специалисты оповещены и вскоре проблема будет устранена"
+          };
+          var n = Object.assign({}, it.state, new_state);
+          it.setState(n);
           setTimeout(function () {
-            (0, _jquery2.default)("#alert-place").html("");
+            var new_state = {
+              alertDangerState: "hidden",
+              alertTitle: "",
+              alertText: ""
+            };
+            var n = Object.assign({}, it.state, new_state);
+            it.setState(n);
           }, 3000);
+        }
+      });
+    }
+  }, {
+    key: 'deleteSite',
+    value: function deleteSite(e) {
+      var id = e.target.getAttribute('data');
+      var it = this;
+      this.props.actions.delResources(id, it, function (res, it) {
+        if (res.status == 200) {
+          it.props.actions.fetchResources();
         }
       });
     }
   }, {
     key: 'renderResource',
     value: function renderResource() {
-      console.log("Render resources ", this.props);
+      var _this2 = this;
+
       if (this.props.resources) {
         if (this.props.resources.list) {
-          console.log("List ", this.props.resources.list);
           return this.props.resources.list.map(function (item, index) {
             return _react2.default.createElement(
               'tr',
@@ -41979,7 +42037,24 @@ var Sites = function (_Component) {
                 null,
                 item.pay_to
               ),
-              _react2.default.createElement('td', null)
+              _react2.default.createElement(
+                'td',
+                null,
+                _react2.default.createElement(
+                  'div',
+                  { className: 'btn-group' },
+                  _react2.default.createElement(
+                    'button',
+                    { type: 'button', onClick: _this2.deleteSite, data: item.id, className: 'btn btn-default' },
+                    _react2.default.createElement('i', { data: item.id, className: 'fa fa-fw fa-close' })
+                  ),
+                  _react2.default.createElement(
+                    'button',
+                    { type: 'button', className: 'btn btn-default' },
+                    _react2.default.createElement('i', { className: 'fa fa-fw fa-edit' })
+                  )
+                )
+              )
             );
           });
         }
@@ -41988,7 +42063,7 @@ var Sites = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _react2.default.createElement(
         'div',
@@ -42038,7 +42113,7 @@ var Sites = function (_Component) {
                     _react2.default.createElement(
                       'th',
                       null,
-                      'Label'
+                      '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u044F'
                     )
                   ),
                   this.renderResource()
@@ -42087,12 +42162,32 @@ var Sites = function (_Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'modal-body' },
-                _react2.default.createElement('div', { id: 'alert-place' }),
+                _react2.default.createElement(
+                  'div',
+                  { id: 'alert-place' },
+                  _react2.default.createElement(
+                    'div',
+                    { className: "alert alert-danger alert-dismissible " + this.state.alertDangerState },
+                    _react2.default.createElement(
+                      'button',
+                      { type: 'button', className: 'close', 'data-dismiss': 'alert', 'aria-hidden': 'true' },
+                      '\xD7'
+                    ),
+                    _react2.default.createElement(
+                      'h4',
+                      null,
+                      _react2.default.createElement('i', { className: 'icon fa fa-ban' }),
+                      ' ',
+                      this.state.alertTitle
+                    ),
+                    this.state.alertText
+                  )
+                ),
                 _react2.default.createElement(
                   'div',
                   { className: "form-group domain " + this.state.domainError },
                   _react2.default.createElement('input', { name: 'domain', ref: function ref(input) {
-                      _this2.domainInput = input;
+                      _this3.domainInput = input;
                     }, type: 'text', className: 'form-control', placeholder: 'vash-site.com.ua' }),
                   _react2.default.createElement(
                     'span',
@@ -42180,7 +42275,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    actions: (0, _redux.bindActionCreators)({ fetchResources: _CustomerAction.fetchResources, addResources: _CustomerAction.addResources }, dispatch)
+    actions: (0, _redux.bindActionCreators)({ fetchResources: _CustomerAction.fetchResources, addResources: _CustomerAction.addResources, delResources: _CustomerAction.delResources }, dispatch)
   };
 }
 
@@ -45252,6 +45347,7 @@ var DangerAlert = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (DangerAlert.__proto__ || Object.getPrototypeOf(DangerAlert)).call(this, props));
 
 		_this.renderResource = _this.renderResource.bind(_this);
+		console.log("Danger alert");
 		return _this;
 	}
 
@@ -55690,7 +55786,7 @@ var Sidebar = function (_Component) {
   }, {
     key: 'renderResource',
     value: function renderResource() {
-      console.log(this.props.resources.length);
+
       if (this.props.resources.length > 0) {
         return this.props.resources.map(function (item) {
           return _react2.default.createElement(

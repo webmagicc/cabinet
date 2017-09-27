@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_RESOURCES,ADD_RESOURCES } from '../constants';
+import { FETCH_RESOURCES,ADD_RESOURCES,DEL_RESOURCES } from '../constants';
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
@@ -22,6 +22,8 @@ export  function addResources(newResource, it, callback){
                   'Content-Type': 'application/json; charset=UTF-8'}
 	}).then(response => callback(response,it))
 	.catch(function (error) {
+		//console.log(error)
+		error = String(error)
 		if(error.indexOf('409')> -1)
 		{
 			callback({"status":409},it)
@@ -34,6 +36,35 @@ export  function addResources(newResource, it, callback){
 
 	return {
 			type: ADD_RESOURCES,
+			payload: request
+		}
+	
+}
+
+export  function delResources(id, it, callback){
+	const request = axios({
+		method: 'delete',
+		url:'/api/customers/resouce/'+id,
+		xsrfCookieName: 'csrftoken',
+        xsrfHeaderName: 'X-CSRFToken',
+        headers: {'X-Requested-With': 'XMLHttpRequest',
+                  'Content-Type': 'application/json; charset=UTF-8'}
+	}).then(response => callback(response,it))
+	.catch(function (error) {
+		//console.log(error)
+		error = String(error)
+		if(error.indexOf('409')> -1)
+		{
+			callback({"status":409},it)
+		} else {
+			callback({"status":500},it)
+		}
+		
+	  });
+	
+
+	return {
+			type: DEL_RESOURCES,
 			payload: request
 		}
 	

@@ -19,7 +19,7 @@ class Sidebar extends Component{
     this.props.fetchResources();
   }
   renderResource(){
-    console.log(this.props.resources.length)
+    
     if(this.props.resources.length > 0){
       return this.props.resources.map(item => {
         return (

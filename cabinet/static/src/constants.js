@@ -1,3 +1,4 @@
 export const FETCH_USER = 'FETCH_USER';
 export const FETCH_RESOURCES = 'FETCH_RESOURCES';
 export const ADD_RESOURCES = 'ADD_RESOURCES';
+export const DEL_RESOURCES = 'DEL_RESOURCES';

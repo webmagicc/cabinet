@@ -4,6 +4,7 @@ class DangerAlert extends Component{
 	constructor(props) {
 	    super(props);
 	    this.renderResource = this.renderResource.bind(this);
+	    console.log("Danger alert")
 	}
 	render(){
 		return (
