@@ -1,0 +1,32 @@
+.login-or {
+    font-weight: 700;
+    padding-top: 3px;
+    padding-bottom: 5px;
+}
+.socialaccount_providers {
+    list-style-type: none;
+    text-align: center;
+    padding-left: 0;
+}
+.socialaccount_providers li {
+    display: inline-block;
+    
+}
+.socialaccount_providers li a {
+
+}
+.socialaccount_providers li a .fa {
+    font-size: 30px;
+}
+.socialaccount_providers li a .fa.fa-facebook-square {
+    color: #4267b2;
+}
+.socialaccount_providers li a .fa.fa-google-plus-square {
+    color: #db4437;
+}
+.socialaccount_providers li a .fa.fa-instagram {
+    color: #262626;
+}
+.socialaccount_providers li a .fa.fa-twitter-square {
+    color: #1da1f2;
+}
