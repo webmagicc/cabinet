@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Dashboard from './components/Dashboard';
 import Sidebar from './components/Sidebar';
+import Site from './components/site/Site';
 import SidebarRight from './components/SidebarRight';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -24,6 +25,7 @@ ReactDOM.render(
 					<Header/>
 					<Sidebar/>
 					<Switch>
+						<Route path="/resource/:id" component={Site}/>
 						<Route path="/" component={Dashboard}/>
 					</Switch>
 					<SidebarRight/>

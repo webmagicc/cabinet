@@ -4,6 +4,7 @@ from customers.models import Resouce, Platform
 from core.permissions import IsOwnerOrReadOnly
 from rest_framework import status
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 
 class ResouceViewSet(viewsets.ModelViewSet):
@@ -20,7 +21,6 @@ class ResouceViewSet(viewsets.ModelViewSet):
         if Resouce.objects.filter(domain=domain).count()>0:
             content = {'text': 'Такой домен уже зарегистрирован'}
             return Response(content, status=status.HTTP_409_CONFLICT)
-        
         try:
             new_site = Resouce(owner=request.user,
                                 domain=domain)
@@ -43,7 +43,17 @@ class ResouceViewSet(viewsets.ModelViewSet):
         return super(ResouceViewSet, self).create(request)
 
     def retrieve(self, request, pk=None):
-        return super(ResouceViewSet, self).retrive(request,pk)
+        site = Resouce.objects.filter(pk=pk).first()
+        if not site:
+            content = {'status': '404'}
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+        if site.owner != request.user:
+            content = {'status': '406'}
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        serializer = ResouceSerializer(site)
+        return Response(serializer.data)
+        
 
     def update(self, request, pk=None):
         return super(ResouceViewSet, self).update(request,pk)

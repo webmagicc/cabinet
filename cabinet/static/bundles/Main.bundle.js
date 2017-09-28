@@ -4518,6 +4518,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var FETCH_USER = exports.FETCH_USER = 'FETCH_USER';
 var FETCH_RESOURCES = exports.FETCH_RESOURCES = 'FETCH_RESOURCES';
+var FETCH_RESOURCE = exports.FETCH_RESOURCE = 'FETCH_RESOURCE';
 var ADD_RESOURCES = exports.ADD_RESOURCES = 'ADD_RESOURCES';
 var DEL_RESOURCES = exports.DEL_RESOURCES = 'DEL_RESOURCES';
 
@@ -10881,6 +10882,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.fetchResources = fetchResources;
+exports.fetchResource = fetchResource;
 exports.addResources = addResources;
 exports.delResources = delResources;
 
@@ -10899,6 +10901,14 @@ function fetchResources() {
 	var request = _axios2.default.get('/api/customers/resouce/');
 	return {
 		type: _constants.FETCH_RESOURCES,
+		payload: request
+	};
+}
+
+function fetchResource(id) {
+	var request = _axios2.default.get('/api/customers/resouce/' + id);
+	return {
+		type: _constants.FETCH_RESOURCE,
 		payload: request
 	};
 }
@@ -28318,6 +28328,10 @@ var _Sidebar = __webpack_require__(320);
 
 var _Sidebar2 = _interopRequireDefault(_Sidebar);
 
+var _Site = __webpack_require__(332);
+
+var _Site2 = _interopRequireDefault(_Site);
+
 var _SidebarRight = __webpack_require__(321);
 
 var _SidebarRight2 = _interopRequireDefault(_SidebarRight);
@@ -28356,6 +28370,7 @@ _reactDom2.default.render(_react2.default.createElement(
 			_react2.default.createElement(
 				_reactRouterDom.Switch,
 				null,
+				_react2.default.createElement(_reactRouterDom.Route, { path: '/resource/:id', component: _Site2.default }),
 				_react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Dashboard2.default })
 			),
 			_react2.default.createElement(_SidebarRight2.default, null),
@@ -55787,20 +55802,25 @@ var Sidebar = function (_Component) {
     key: 'renderResource',
     value: function renderResource() {
 
-      if (this.props.resources.length > 0) {
-        return this.props.resources.map(function (item) {
-          return _react2.default.createElement(
-            'li',
-            { key: item.id },
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: "/resource/" + item.id },
-              _react2.default.createElement('i', { className: 'fa fa-circle-o' }),
-              ' ',
-              item.domain
-            )
-          );
-        });
+      if (this.props.resources) {
+        if (this.props.resources.list) {
+          if (this.props.resources.list.length > 0) {
+            return this.props.resources.list.map(function (item) {
+              console.log(item);
+              return _react2.default.createElement(
+                'li',
+                { key: item.id },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: "/resource/" + item.id },
+                  _react2.default.createElement('i', { className: 'fa fa-circle-o' }),
+                  ' ',
+                  item.domain
+                )
+              );
+            });
+          }
+        }
       }
     }
   }, {
@@ -57094,6 +57114,10 @@ exports.default = function () {
       //return action.payload;
       return Object.assign({}, state, { 'new_site': action.payload });
 
+    case _constants.FETCH_RESOURCE:
+      //return action.payload;
+      return Object.assign({}, state, { 'resource': action.payload });
+
     default:
       return state;
 
@@ -57667,6 +57691,89 @@ function isNative(value) {
 
 module.exports = isArray;
 
+
+/***/ }),
+/* 331 */,
+/* 332 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(10), RootInstanceProvider = __webpack_require__(11), ReactMount = __webpack_require__(8), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(45);
+
+var _CustomerAction = __webpack_require__(132);
+
+var _redux = __webpack_require__(34);
+
+var _reactRouterDom = __webpack_require__(70);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Site = function (_Component) {
+	_inherits(Site, _Component);
+
+	function Site() {
+		_classCallCheck(this, Site);
+
+		return _possibleConstructorReturn(this, (Site.__proto__ || Object.getPrototypeOf(Site)).apply(this, arguments));
+	}
+
+	_createClass(Site, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var id = this.props.match.params.id;
+
+			this.props.actions.fetchResource(id);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			console.log("Props ", this.props);
+			return _react2.default.createElement(
+				'h1',
+				null,
+				'Hello'
+			);
+		}
+	}]);
+
+	return Site;
+}(_react.Component);
+
+function mapStateToProps(state) {
+
+	return {
+		resource: state.resource
+	};
+}
+function mapDispatchToProps(dispatch) {
+	return {
+		actions: (0, _redux.bindActionCreators)({ fetchResource: _CustomerAction.fetchResource }, dispatch)
+	};
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Site);
+
+/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(12); if (makeExportsHot(module, __webpack_require__(1))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "Site.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ })
 ],[135]);

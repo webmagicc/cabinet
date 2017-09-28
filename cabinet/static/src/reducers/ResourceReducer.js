@@ -1,4 +1,4 @@
-import { FETCH_RESOURCES, ADD_RESOURCES } from '../constants';
+import { FETCH_RESOURCES, ADD_RESOURCES, FETCH_RESOURCE} from '../constants';
 import _ from 'lodash';
 
 export default function(state={},action){
@@ -10,6 +10,10 @@ export default function(state={},action){
     case ADD_RESOURCES:
       //return action.payload;
       return Object.assign({}, state, {'new_site':action.payload})
+
+    case FETCH_RESOURCE:
+      //return action.payload;
+      return Object.assign({}, state, {'resource':action.payload})
     
     default:
       return state;
