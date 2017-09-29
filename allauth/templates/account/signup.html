@@ -29,37 +29,56 @@
   	{% endif %}
 	<h1>Создать акаунт</h1>
 
-	<p>{% blocktrans %}Уже зарегистрированы? <a href="{{ login_url }}">Войдите</a>.{% endblocktrans %}</p>
+	<p class="already_registered">{% blocktrans %}Уже зарегистрированы? <a href="{{ login_url }}">Войдите</a>.{% endblocktrans %}</p>
 
 	<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
 	  {% csrf_token %}
 	  	<div class="form-group has-feedback">
-	      <input type="email" class="form-control" name="email" required="" autofocus="autofocus" placeholder="E-mail address" id="id_email">
+	      <input type="email" class="form-control" name="email" required="" autofocus="autofocus" placeholder="{% trans "E-mail адрес" %}" id="id_email">
 	      <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 	    </div>
 	    <div class="form-group has-feedback">
-	      <input type="password" class="form-control" name="password1" required="" id="id_password1" placeholder="Пароль" >
+	      <input type="password" class="form-control" name="password1" required="" id="id_password1" placeholder="{% trans "Пароль" %}" >
 	      <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 	    </div>
 	    <div class="form-group has-feedback">
-	      <input type="password" class="form-control" name="password2" required="" id="id_password2" placeholder="Повторите пароль" >
+	      <input type="password" class="form-control" name="password2" required="" id="id_password2" placeholder="{% trans "Повторите пароль" %}" >
 	      <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 	    </div>
 	  
 	  {% if redirect_field_value %}
 	  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
 	  {% endif %}
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="text-center">{% trans "или" %}</p>
+        <ul class="socialaccount_providers">
+          <li>
+            <a title="Google" class="socialaccount_provider facebook" href="/accounts/facebook/login/?process=login"><i class="fa fa-fw fa-facebook-square"></i></a>
+          </li>
+          <li>
+            <a title="Google" class="socialaccount_provider google" href="/accounts/google/login/?process=login"><i class="fa fa-fw fa-google-plus-square"></i></a>
+          </li>
+          <li>
+            <a title="Instagram" class="socialaccount_provider instagram" href="/accounts/instagram/login/?process=login"><i class="fa fa-fw fa-instagram"></i></a>
+          </li>
+          <li>
+            <a title="Twitter" class="socialaccount_provider twitter" href="/accounts/twitter/login/?process=login"><i class="fa fa-fw fa-twitter-square"></i></a>
+          </li>
+        </ul>  
+      </div>
+    </div>
 	  <div class="row">
         <div class="col-xs-7">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> Согласен с<a href="#">условиями</a>
+              {% blocktrans %}<input type="checkbox"> Согласен с<a href="#">условиями</a>{% endblocktrans %}
             </label>
           </div>
         </div>
         <!-- /.col -->
         <div class="col-xs-5">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Отправить</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">{% trans "Отправить" %}</button>
         </div>
         <!-- /.col -->
       </div>

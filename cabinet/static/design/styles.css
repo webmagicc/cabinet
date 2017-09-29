@@ -1,7 +1,28 @@
+.login-box-body > h1 {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+}
+.already_registered {
+    font-weight: 700;
+}
 .login-or {
     font-weight: 700;
     padding-top: 3px;
     padding-bottom: 5px;
+}
+.password_reset_page {
+    background: #d2d6de;
+}
+.password_reset_page form label {
+    display: none;
+}
+.password_reset_page .btn {
+    display: block;
+    width: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    /*margin: 0 0 0 auto;*/
 }
 .socialaccount_providers {
     list-style-type: none;

@@ -472,7 +472,8 @@ class ResetPasswordForm(forms.Form):
         widget=forms.TextInput(attrs={
             "type": "email",
             "size": "30",
-            "placeholder": _("E-mail address"),
+            "placeholder": _("E-mail адрес"),
+            "class": "form-control",
         })
     )
 
