@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Dashboard from './components/Dashboard';
+import Sites from './components/dashboard/Sites';
+import Code from './components/dashboard/Code';
 import Sidebar from './components/Sidebar';
 import Site from './components/site/Site';
 import SidebarRight from './components/SidebarRight';
@@ -24,10 +25,22 @@ ReactDOM.render(
 				<div>
 					<Header/>
 					<Sidebar/>
-					<Switch>
-						<Route path="/resource/:id" component={Site}/>
-						<Route path="/" component={Dashboard}/>
-					</Switch>
+					<div className="content-wrapper" >
+					    <section className="content-header">
+					      
+					      <ol className="breadcrumb">
+					        <li><a href="#"><i className="fa fa-dashboard"></i> Home</a></li>
+					        <li className="active">Dashboard</li>
+					      </ol>
+					    </section>
+					    <section className="content">
+					        <Code/>
+						    <Switch>
+								<Route path="/resource/:id" component={Site}/>
+								<Route path="/" component={Sites}/>
+							</Switch>
+						</section>
+					 </div>
 					<SidebarRight/>
 					<Footer/>
 				</div>

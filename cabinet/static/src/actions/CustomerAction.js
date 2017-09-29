@@ -12,7 +12,7 @@ export  function fetchResources(){
 }
 
 export  function fetchResource(id){
-	const request = axios.get('/api/customers/resouce/'+id);
+	const request = axios.get('/api/customers/resouce/'+id+'/');
 	return {
 		type: FETCH_RESOURCE,
 		payload: request

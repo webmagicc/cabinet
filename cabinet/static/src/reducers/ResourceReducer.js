@@ -13,7 +13,7 @@ export default function(state={},action){
 
     case FETCH_RESOURCE:
       //return action.payload;
-      return Object.assign({}, state, {'resource':action.payload})
+      return Object.assign({}, state, {'resource':action.payload.data})
     
     default:
       return state;

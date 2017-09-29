@@ -24,7 +24,7 @@ class Sidebar extends Component{
       if(this.props.resources.list){
         if(this.props.resources.list.length > 0){
           return this.props.resources.list.map(item => {
-            console.log(item)
+            
             return (
               <li key={item.id}><Link to={"/resource/"+item.id}><i className="fa fa-circle-o"></i> {item.domain}</Link></li>
               )
