@@ -17,7 +17,8 @@
 .password_reset_page form label {
     display: none;
 }
-.password_reset_page .btn {
+.password_reset_page .btn,
+.logout_page .btn {
     display: block;
     width: 160px;
     margin-left: auto;
