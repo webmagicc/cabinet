@@ -52,3 +52,29 @@
 .socialaccount_providers li a .fa.fa-twitter-square {
     color: #1da1f2;
 }
+.email-page .ctrlHolder {
+    margin-bottom: 8px;
+}
+.email-page .ctrlHolder .verified,
+.email-page .ctrlHolder .primary,
+.email-page .ctrlHolder .unverified {
+    padding-left: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.email-page .ctrlHolder .verified .fa,
+.email-page .ctrlHolder .primary .fa {
+    color: green;
+}
+.email-page .ctrlHolder .unverified .fa {
+    color: red;
+}
+.email-page .btn {
+    border-radius: 0;
+    padding: 6px 8px;
+}
+.email-page .btn_add_email {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,57 +1,107 @@
-{% extends "account/base.html" %}
-
 {% load i18n %}
 
-{% block head_title %}{% trans "Account" %}{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ADV-BLOCK | {% trans "Войти" %}</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="/static/plugins/iCheck/square/blue.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="/static/design/styles.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
 
 {% block content %}
-    <h1>{% trans "E-mail Addresses" %}</h1>
-{% if user.emailaddress_set.all %}
-<p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
 
-<form action="{% url 'account_email' %}" class="email_list" method="post">
-{% csrf_token %}
-<fieldset class="blockLabels">
+<body class="hold-transition login-page email-page">
 
-  {% for emailaddress in user.emailaddress_set.all %}
-<div class="ctrlHolder">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="/"><b>ADV-BLOCK</b></a>
+  </div>
+
+  <div class="login-box-body">
+
+    <h1>{% trans "E-mail адреса" %}</h1>
+    {% if user.emailaddress_set.all %}
+    <p>{% trans 'С вашей учетной записью связаны следующие адреса электронной почты:' %}</p>
+
+    <form action="{% url 'account_email' %}" class="email_list" method="post">
+    {% csrf_token %}
+    <fieldset class="blockLabels">
+
+      {% for emailaddress in user.emailaddress_set.all %}
+    <div class="ctrlHolder">
       <label for="email_radio_{{forloop.counter}}" class="{% if emailaddress.primary %}primary_email{%endif%}">
 
       <input id="email_radio_{{forloop.counter}}" type="radio" name="email" {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked"{%endif %} value="{{emailaddress.email}}"/>
 
-{{ emailaddress.email }}
-    {% if emailaddress.verified %}
-    <span class="verified">{% trans "Verified" %}</span>
+    {{ emailaddress.email }}
+        {% if emailaddress.verified %}
+        <div class="verified"><i class="fa fa-check" aria-hidden="true"></i> {% trans "подтвержден" %}</div>
+        {% else %}
+        <div class="unverified"><i class="fa fa-times" aria-hidden="true"></i> {% trans "неподтвержден" %}</div>
+        {% endif %}
+          {% if emailaddress.primary %}<span class="primary"><i class="fa fa-check" aria-hidden="true"></i> {% trans "основной" %}</span>{% endif %}
+    </label>
+    </div>
+      {% endfor %}
+
+    <div class="buttonHolder">
+      <button class="btn btn-primary secondaryAction" type="submit" name="action_primary" >{% trans 'Сделать основным' %}</button>
+      <button class="btn btn-primary secondaryAction" type="submit" name="action_send" >{% trans 'Подтвердить' %}</button>
+      <button class="btn btn-primary primaryAction" type="submit" name="action_remove" >{% trans 'Удалить' %}</button>
+    </div>
+
+    </fieldset>
+    </form>
+
     {% else %}
-    <span class="unverified">{% trans "Unverified" %}</span>
+    <p><strong>{% trans 'Warning:'%}</strong> {% trans "В настоящее время у вас нет адреса электронной почты. Вы должны добавить адрес электронной почты для того чтобы получать уведомления, изменять пароль и т.д." %}</p>
+
     {% endif %}
-      {% if emailaddress.primary %}<span class="primary">{% trans "Primary" %}</span>{% endif %}
-</label>
-</div>
-  {% endfor %}
 
-<div class="buttonHolder">
-      <button class="secondaryAction" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
-      <button class="secondaryAction" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
-      <button class="primaryAction" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
-</div>
-
-</fieldset>
-</form>
-
-{% else %}
-<p><strong>{% trans 'Warning:'%}</strong> {% trans "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}</p>
-
-{% endif %}
-
-
-    <h2>{% trans "Add E-mail Address" %}</h2>
+    <br>
+    <p><strong>{% trans "Добавить E-mail адрес" %}</strong></p>
 
     <form method="post" action="{% url 'account_email' %}" class="add_email">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button name="action_add" type="submit">{% trans "Add E-mail" %}</button>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button name="action_add" class="btn btn-primary btn_add_email" type="submit">{% trans "Добавить E-mail" %}</button>
     </form>
+
+    <div class="text-center">
+        <br>
+        <strong><span>или</span></strong>
+    </div>
+    <ul class="list-unstyled text-center">      
+      <li><a href="/">На главную страницу</a></li>
+    </ul>
+
+  </div>
+
+</div>
 
 {% endblock %}
 
@@ -71,3 +121,21 @@
 })();
 </script>
 {% endblock %}
+
+<!-- jQuery 3 -->
+<script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="/static/plugins/iCheck/icheck.min.js"></script>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
+</body>
+</html>

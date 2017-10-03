@@ -403,7 +403,7 @@ class AddEmailForm(UserForm):
         widget=forms.TextInput(
             attrs={"type": "email",
                    "size": "30",
-                   "placeholder": _('E-mail address')}))
+                   "placeholder": _('E-mail адрес')}))
 
     def clean_email(self):
         value = self.cleaned_data["email"]
