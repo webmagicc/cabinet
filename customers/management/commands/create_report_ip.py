@@ -14,13 +14,19 @@ class Command(BaseCommand):
         local_db = local_client['cabinet']
 
         for s in Resouce.objects.prefetch_related('watch').all():
-        	print(s.domain)
-        	for w in s.watch.all():
-        		print(w.name)
-        		if w.name == 'Google':
-        			google_ips = []
-        			regx = re.compile("gclid=", re.IGNORECASE)
-        			for i in remote_db.hits.find({"$and":[{"domain":s.domain},{ "href": regx }]}):
-        				print(i)
-        		if w.name == 'Yandex':
-        			pass
+            print(s.domain)
+            for w in s.watch.all():
+                print(w.name)
+                if w.name == 'Google':
+                    google_ips = []
+                    regx = re.compile("gclid=", re.IGNORECASE)
+                    for i in remote_db.hits.find({"$and":[{"domain":s.domain},{ "href": regx }]}):
+                        print(i)
+                        print(" ")
+                        
+                if w.name == 'Yandex':
+                    yandex_ips = []
+                    regx = re.compile("yabs", re.IGNORECASE)
+                    for i in remote_db.hits.find({"$and":[{"domain":s.domain},{ "referer": regx }]}):
+                        print(i)
+                        print(" ")
