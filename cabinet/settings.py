@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'core',
     'profiles',
     'customers',
+    'reports',
     'webpack_loader',
     'rest_framework',
     'allauth',
