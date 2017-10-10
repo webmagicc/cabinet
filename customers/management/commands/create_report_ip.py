@@ -2,6 +2,10 @@ from django.core.management.base import BaseCommand, CommandError
 from pymongo import MongoClient
 from customers.models import Resouce
 import re
+from reports.models import (IpReport,
+                             IpReportItem,
+                             UserReport,
+                             UserReportItem)
 
 
 
@@ -21,6 +25,22 @@ class Command(BaseCommand):
                     google_ips = []
                     regx = re.compile("gclid=", re.IGNORECASE)
                     for i in remote_db.hits.find({"$and":[{"domain":s.domain},{ "href": regx }]}):
+                        report, created = IpReport.objects.get_or_create(site=s,
+                                                                platform=w,
+                                                                ip=i['ip'])
+                        if 'referer' in i:
+                            referer  = i['referer']
+                        else:
+                            referer  = ''
+                        if 'href' in i:
+                            href  = i['href']
+                        else:
+                            href  = ''
+                        iri, created = IpReportItem.objects.get_or_create(ip_report=report,
+                                                                date=i['date'],
+                                                                user_agent=i['user_agent'],
+                                                                href=href,
+                                                                referer=referer)
                         print(i)
                         print(" ")
                         
@@ -28,5 +48,21 @@ class Command(BaseCommand):
                     yandex_ips = []
                     regx = re.compile("yabs", re.IGNORECASE)
                     for i in remote_db.hits.find({"$and":[{"domain":s.domain},{ "referer": regx }]}):
+                        report, created = IpReport.objects.get_or_create(site=s,
+                                                                platform=w,
+                                                                ip=i['ip'])
+                        if 'referer' in i:
+                            referer  = i['referer']
+                        else:
+                            referer  = ''
+                        if 'href' in i:
+                            href  = i['href']
+                        else:
+                            href  = ''
+                        iri, created = IpReportItem.objects.get_or_create(ip_report=report,
+                                                                date=i['date'],
+                                                                user_agent=i['user_agent'],
+                                                                href=href,
+                                                                referer=referer)
                         print(i)
                         print(" ")

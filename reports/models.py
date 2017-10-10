@@ -20,6 +20,10 @@ class IpReport(BaseModel):
                             default=0,
                             null=True,
                             blank=True)
+    distinct_user_agents = models.IntegerField('Distinct user agent',
+                            default=0,
+                            null=True,
+                            blank=True)
 
 class IpReportItem(BaseModel):
     ip_report = models.ForeignKey(IpReport,
@@ -80,4 +84,8 @@ class UserReportItem(BaseModel):
                             max_length=255,
                             db_index=True,
                             default='')
+    distinct_ip = models.IntegerField('Distinct ip',
+                            default=0,
+                            null=True,
+                            blank=True)
 
