@@ -42,6 +42,10 @@ class IpReportItem(BaseModel):
     href = models.CharField('href',
                             max_length=255,
                             default='')
+    user = models.CharField('user',
+                            max_length=255,
+                            db_index=True,
+                            default='')
 
 
 class UserReport(BaseModel):

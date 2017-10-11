@@ -40,6 +40,7 @@ class Command(BaseCommand):
                                                                 date=i['date'],
                                                                 user_agent=i['user_agent'],
                                                                 href=href,
+                                                                user=i['adv_user'],
                                                                 referer=referer)
                         print(i)
                         print(" ")
@@ -63,6 +64,14 @@ class Command(BaseCommand):
                                                                 date=i['date'],
                                                                 user_agent=i['user_agent'],
                                                                 href=href,
+                                                                user=i['adv_user'],
                                                                 referer=referer)
                         print(i)
                         print(" ")
+        for r in IpReport.objects.all():
+            c = IpReportItem.objects.filter(ip_report=r).count()
+            r.count = c
+            print(c)
+            d = IpReportItem.objects.filter(ip_report=r).values('user').distinct().count()
+            r.distinct_ip = d
+            r.save()

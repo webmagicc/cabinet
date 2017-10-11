@@ -68,3 +68,12 @@ class Command(BaseCommand):
                                                                 ip=i['ip'])
                         print(i)
                         print(" ")
+
+        for r in UserReport.objects.all():
+            c = UserReportItem.objects.filter(user_report=r).count()
+            r.count = c
+            print(c)
+            d = UserReportItem.objects.filter(user_report=r).values('ip').distinct().count()
+            r.distinct_ip = d
+            r.save()
+
