@@ -61,6 +61,10 @@ class UserReport(BaseModel):
                             default=0,
                             null=True,
                             blank=True)
+    distinct_ip = models.IntegerField('Distinct ip',
+                            default=0,
+                            null=True,
+                            blank=True)
 
 
 class UserReportItem(BaseModel):
@@ -84,8 +88,5 @@ class UserReportItem(BaseModel):
                             max_length=255,
                             db_index=True,
                             default='')
-    distinct_ip = models.IntegerField('Distinct ip',
-                            default=0,
-                            null=True,
-                            blank=True)
+    
 
