@@ -56604,6 +56604,7 @@ var Site = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (Site.__proto__ || Object.getPrototypeOf(Site)).call(this, props));
 
 		_this.renderPlatforms = _this.renderPlatforms.bind(_this);
+
 		return _this;
 	}
 
@@ -56641,11 +56642,7 @@ var Site = function (_Component) {
 						_react2.default.createElement(
 							'div',
 							{ id: "#collapse" + platform.id, className: 'panel-collapse collapse', 'aria-expanded': 'true' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'box-body' },
-								'kjkj'
-							)
+							_react2.default.createElement('div', { className: 'box-body' })
 						)
 					)
 				);

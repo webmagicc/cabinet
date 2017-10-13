@@ -10,6 +10,7 @@ class Site extends Component{
 	constructor(props) {
 	    super(props);
 	    this.renderPlatforms = this.renderPlatforms.bind(this);
+
     }
 	componentDidMount(){
 		const { id } = this.props.match.params
@@ -30,7 +31,7 @@ class Site extends Component{
 	                  </div>
 	                  <div id={"#collapse"+platform.id} className="panel-collapse collapse" aria-expanded="true" >
 	                    <div className="box-body">
-	                      kjkj
+	                      
 	                    </div>
 	                  </div>
 	                </div>

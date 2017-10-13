@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'reports',
     'webpack_loader',
     'rest_framework',
+    'django_filters',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -153,7 +154,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 100
+    'PAGE_SIZE': 100,
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
 
 

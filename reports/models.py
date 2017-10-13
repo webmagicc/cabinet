@@ -24,6 +24,8 @@ class IpReport(BaseModel):
                             default=0,
                             null=True,
                             blank=True)
+    class Meta:
+        ordering = ['-count',]
 
 class IpReportItem(BaseModel):
     ip_report = models.ForeignKey(IpReport,
