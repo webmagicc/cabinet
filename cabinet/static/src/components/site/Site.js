@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {fetchResource} from '../../actions/CustomerAction';
 import {bindActionCreators} from 'redux';
 import { Link } from 'react-router-dom';
+import Report from '../reports/Report';
 
 
 
@@ -29,8 +30,9 @@ class Site extends Component{
 	                      </a>
 	                    </h4>
 	                  </div>
-	                  <div id={"#collapse"+platform.id} className="panel-collapse collapse" aria-expanded="true" >
+	                  <div id={"#collapse"+platform.id} className="panel-collapse collapse in" aria-expanded="true" >
 	                    <div className="box-body">
+	                    	<Report platform={platform.id}/>
 	                      
 	                    </div>
 	                  </div>

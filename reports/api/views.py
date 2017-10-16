@@ -15,5 +15,17 @@ class IpReportListAPIView(ListAPIView):
     filter_fields = ('platform_id', 'site_id')
 
     def get_queryset(self):
-    	queryset = IpReport.objects.filter(count__gte=2)
-    	return queryset
+        platform = self.kwargs['platform']
+        queryset = IpReport.objects.filter(count__gte=2,platform_id=int(platform)).order_by('-count')
+        return queryset
+
+
+class ClientReportListAPIView(ListAPIView):
+    serializer_class = UserReportSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('platform_id', 'site_id')
+
+    def get_queryset(self):
+        platform = self.kwargs['platform']
+        queryset = UserReport.objects.filter(count__gte=2,platform_id=int(platform)).order_by('-count')
+        return queryset

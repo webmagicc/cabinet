@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^api/profiles/', include('profiles.api.urls')),
     url(r'^api/customers/', include('customers.api.urls')),
     url(r'^api/reports/', include('reports.api.urls')),
-    #url(r'^', profiles_views.HomeView.as_view()),
+    url(r'^', profiles_views.HomeView.as_view()),
 
     
 ]
