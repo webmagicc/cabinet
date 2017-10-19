@@ -6,11 +6,15 @@ export default function(state={},action){
   
   switch (action.type) {
     case FETCH_USER_REPORT:
+       console.log(action.payload.data)
       //return action.payload.data.results;
-      return Object.assign({}, state,{'user_report':{action.site:{action.platform:action.payload.data.results}}})
+      //var obj = {String(action.site):{String(action.platform):action.payload.data.results}}
+      var obj = {}
+      return Object.assign({}, state,{'user_report':action.payload.data.results})
     case FETCH_IP_REPORT:
       //return action.payload;
-      return Object.assign({}, state, {'ip_report':{action.site:{action.platform:action.payload.data.results}}})
+      var obj = {}
+      return Object.assign({}, state, {'ip_report':action.payload.data.results})
     
     default:
       return state;

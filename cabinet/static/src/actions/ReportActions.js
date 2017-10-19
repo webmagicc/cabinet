@@ -4,7 +4,7 @@ axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 
-export  function fetchReportsIp(platform,site){
+export  function fetchReportsIp(site,platform){
 	const request = axios.get('/api/reports/ip_reports/'+platform+'/?site_id='+site);
 	return {
 		type: FETCH_IP_REPORT,
@@ -14,7 +14,7 @@ export  function fetchReportsIp(platform,site){
 	}
 }
 
-export  function fetchReportsClient(platform,site){
+export  function fetchReportsClient(site,platform){
 	const request = axios.get('/api/reports/client_reports/'+platform+'/?site_id='+site);
 	return {
 		type: FETCH_USER_REPORT,

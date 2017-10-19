@@ -19,6 +19,7 @@ class Site extends Component{
 	    window.start_collaps
 	}
 	renderPlatforms(){
+		
 		return this.props.resources.resource.watch.map((platform,index) => {
 			return (
 				<div key={index} className="box-group" id={platform.name}>
@@ -32,7 +33,7 @@ class Site extends Component{
 	                  </div>
 	                  <div id={"#collapse"+platform.id} className="panel-collapse collapse in" aria-expanded="true" >
 	                    <div className="box-body">
-	                    	<Report platform={platform.id}/>
+	                    	<Report site={this.props.resources.resource.id} platform={platform.id}/>
 	                      
 	                    </div>
 	                  </div>
