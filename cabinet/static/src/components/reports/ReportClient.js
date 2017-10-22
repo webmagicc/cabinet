@@ -20,14 +20,62 @@ class ReportClient extends Component{
 	showDetail(){
 
 	}
+	componentDidUpdate(){
+		if(this.props.reports){
+			if(this.props.reports.user_report){
+				if(this.props.reports.user_report[this.props.platform]){
+					console.log("Yes update ", this.props.reports.user_report[this.props.platform])
+					
+					if(this.props.reports.user_report[this.props.platform].data){
+						console.log("Data update ", this.props.reports.user_report[this.props.platform].data)
+					}
+				}
+			}
+		}
+	}
+	componentWillReceiveProps(){
+		if(this.props.reports){
+			if(this.props.reports.user_report){
+				if(this.props.reports.user_report[this.props.platform]){
+					console.log("Yes rp ", this.props.reports.user_report[this.props.platform])
+					
+					if(this.props.reports.user_report[this.props.platform].data){
+						console.log("Data rp ", this.props.reports.user_report[this.props.platform].data)
+					}
+				}
+			}
+		}
+	}
 	renderItem(){
-
+		console.log("Render ",this.props.reports)
+		if(this.props.reports){
+			if(this.props.reports.user_report){
+				if(this.props.reports.user_report[this.props.platform]){
+					console.log("Yes ", this.props.reports.user_report[this.props.platform])
+					
+					if(this.props.reports.user_report[this.props.platform].data){
+						console.log("Data ", this.props.reports.user_report[this.props.platform].data)
+					}
+				}
+			}
+		}
 	}
 	render(){
+		if(this.props.reports){
+			if(this.props.reports.user_report){
+				if(this.props.reports.user_report[this.props.platform]){
+					console.log("Yes render ", this.props.reports.user_report[this.props.platform])
+					
+					if(this.props.reports.user_report[this.props.platform].data){
+						console.log("Data render ", this.props.reports.user_report[this.props.platform].data)
+					}
+				}
+			}
+		}
 		
 		return (
 			<div>
-			  <table className="report-table">
+			  <table className="report-table table table-bordered">
 			  	<thead>
 			  		<tr>
 			  			<td>Устройство</td>
@@ -37,6 +85,7 @@ class ReportClient extends Component{
 			  	</thead>
 			  	<tbody>
 			  		{this.renderItem()}
+
 			  	</tbody>
 			  </table>
 			</div>
@@ -46,6 +95,7 @@ class ReportClient extends Component{
 }
 
 function mapStateToProps (state) {
+	//console.log(state)
   
   return {
   	reports:state.reports,
