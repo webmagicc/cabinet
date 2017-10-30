@@ -14,8 +14,9 @@ export  function fetchReportsIp(site,platform){
 	}
 }
 
-export  function fetchReportsClient(site,platform){
-	const request = axios.get('/api/reports/client_reports/'+platform+'/?site_id='+site);
+export  function fetchReportsClient(site,platform, callback, it){
+	const request = axios.get('/api/reports/client_reports/'+platform+'/?site_id='+site)
+	.then(response => callback(response,it, site, platform));
 	return {
 		type: FETCH_USER_REPORT,
 		payload: request,

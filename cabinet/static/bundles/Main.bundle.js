@@ -56858,81 +56858,77 @@ var ReportClient = function (_Component) {
 
 		_this.showDetail = _this.showDetail.bind(_this);
 		_this.renderItem = _this.renderItem.bind(_this);
-
+		_this.renderItems = _this.renderItems.bind(_this);
+		_this.getResponse = _this.getResponse.bind(_this);
+		_this.state = {};
 		return _this;
 	}
 
 	_createClass(ReportClient, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
+			var it = this;
 			var id = this.props.site.id;
 
-			this.props.actions.fetchReportsClient(this.props.site, this.props.platform);
+			this.props.actions.fetchReportsClient(this.props.site, this.props.platform, this.getResponse, it);
 			window.start_collaps;
 		}
 	}, {
 		key: 'showDetail',
 		value: function showDetail() {}
 	}, {
-		key: 'componentDidUpdate',
-		value: function componentDidUpdate() {
-			if (this.props.reports) {
-				if (this.props.reports.user_report) {
-					if (this.props.reports.user_report[this.props.platform]) {
-						console.log("Yes update ", this.props.reports.user_report[this.props.platform]);
-
-						if (this.props.reports.user_report[this.props.platform].data) {
-							console.log("Data update ", this.props.reports.user_report[this.props.platform].data);
-						}
-					}
-				}
-			}
-		}
-	}, {
-		key: 'componentWillReceiveProps',
-		value: function componentWillReceiveProps() {
-			if (this.props.reports) {
-				if (this.props.reports.user_report) {
-					if (this.props.reports.user_report[this.props.platform]) {
-						console.log("Yes rp ", this.props.reports.user_report[this.props.platform]);
-
-						if (this.props.reports.user_report[this.props.platform].data) {
-							console.log("Data rp ", this.props.reports.user_report[this.props.platform].data);
-						}
-					}
-				}
+		key: 'getResponse',
+		value: function getResponse(response, it, site, platform) {
+			var items = response.data.results;
+			console.log(items.length);
+			if (items.length > 0) {
+				var obj = {};
+				obj[site] = {};
+				obj[site][platform] = items;
+				var newState = Object.assign({}, this.state, obj);
+				this.setState(newState);
+				//console.log("Response ",this.state)
 			}
 		}
 	}, {
 		key: 'renderItem',
-		value: function renderItem() {
-			console.log("Render ", this.props.reports);
-			if (this.props.reports) {
-				if (this.props.reports.user_report) {
-					if (this.props.reports.user_report[this.props.platform]) {
-						console.log("Yes ", this.props.reports.user_report[this.props.platform]);
+		value: function renderItem(item) {
+			return _react2.default.createElement(
+				'tr',
+				{ key: item.id },
+				_react2.default.createElement(
+					'td',
+					null,
+					item.user_agent
+				),
+				_react2.default.createElement(
+					'td',
+					null,
+					item.count
+				),
+				_react2.default.createElement(
+					'td',
+					null,
+					item.count
+				)
+			);
+		}
+	}, {
+		key: 'renderItems',
+		value: function renderItems(site, platform) {
+			var _this2 = this;
 
-						if (this.props.reports.user_report[this.props.platform].data) {
-							console.log("Data ", this.props.reports.user_report[this.props.platform].data);
-						}
-					}
+			if (this.state[site]) {
+				if (this.state[site][platform] && this.state[site][platform].length > 0) {
+					return this.state[site][platform].map(function (item) {
+						return _this2.renderItem(item);
+					});
 				}
 			}
 		}
 	}, {
 		key: 'render',
 		value: function render() {
-			if (this.props.reports) {
-				if (this.props.reports.user_report) {
-					if (this.props.reports.user_report[this.props.platform]) {
-						console.log("Yes render ", this.props.reports.user_report[this.props.platform]);
-
-						if (this.props.reports.user_report[this.props.platform].data) {
-							console.log("Data render ", this.props.reports.user_report[this.props.platform].data);
-						}
-					}
-				}
-			}
 
 			return _react2.default.createElement(
 				'div',
@@ -56966,7 +56962,7 @@ var ReportClient = function (_Component) {
 					_react2.default.createElement(
 						'tbody',
 						null,
-						this.renderItem()
+						this.renderItems(this.props.site, this.props.platform)
 					)
 				)
 			);
@@ -57030,8 +57026,10 @@ function fetchReportsIp(site, platform) {
 	};
 }
 
-function fetchReportsClient(site, platform) {
-	var request = _axios2.default.get('/api/reports/client_reports/' + platform + '/?site_id=' + site);
+function fetchReportsClient(site, platform, callback, it) {
+	var request = _axios2.default.get('/api/reports/client_reports/' + platform + '/?site_id=' + site).then(function (response) {
+		return callback(response, it, site, platform);
+	});
 	return {
 		type: _constants.FETCH_USER_REPORT,
 		payload: request,
@@ -57583,7 +57581,7 @@ exports.default = function () {
 
   switch (action.type) {
     case _constants.FETCH_USER_REPORT:
-      console.log("Reduser ", action.payload);
+      //console.log("Reduser ",action.payload)
       //return action.payload.data.results;
       //var obj = {String(action.site):{String(action.platform):action.payload.data.results}}
       var platform = action.platform;

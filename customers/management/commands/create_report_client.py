@@ -36,6 +36,8 @@ class Command(BaseCommand):
                             href  = i['href']
                         else:
                             href  = ''
+                        report.user_agent = i['user_agent']
+                        report.save()
                         iri, created = UserReportItem.objects.get_or_create(user_report=report,
                                                                 date=i['date'],
                                                                 user_agent=i['user_agent'],

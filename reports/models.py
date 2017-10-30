@@ -63,6 +63,9 @@ class UserReport(BaseModel):
                             max_length=255,
                             db_index=True,
                             default='')
+    user_agent = models.CharField('user agent',
+                            max_length=255,
+                            default='')
     count = models.IntegerField('Count vizits',
                             default=0,
                             null=True,

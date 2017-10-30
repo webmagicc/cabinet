@@ -6,7 +6,7 @@ export default function(state={},action){
   
   switch (action.type) {
     case FETCH_USER_REPORT:
-       console.log("Reduser ",action.payload)
+       //console.log("Reduser ",action.payload)
       //return action.payload.data.results;
       //var obj = {String(action.site):{String(action.platform):action.payload.data.results}}
       var platform = action.platform

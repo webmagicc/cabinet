@@ -10,68 +10,58 @@ class ReportClient extends Component{
 	    super(props);
 	    this.showDetail = this.showDetail.bind(this);
 	    this.renderItem = this.renderItem.bind(this);
-
+	    this.renderItems = this.renderItems.bind(this);
+	    this.getResponse = this.getResponse.bind(this);
+	    this.state = {}
     }
     componentDidMount(){
+    	var it = this
 		const { id } = this.props.site
-	    this.props.actions.fetchReportsClient(this.props.site,this.props.platform);
+	    this.props.actions.fetchReportsClient(this.props.site,this.props.platform, this.getResponse, it);
 	    window.start_collaps
 	}
 	showDetail(){
 
 	}
-	componentDidUpdate(){
-		if(this.props.reports){
-			if(this.props.reports.user_report){
-				if(this.props.reports.user_report[this.props.platform]){
-					console.log("Yes update ", this.props.reports.user_report[this.props.platform])
-					
-					if(this.props.reports.user_report[this.props.platform].data){
-						console.log("Data update ", this.props.reports.user_report[this.props.platform].data)
-					}
-				}
-			}
+	getResponse(response, it, site, platform){
+		var items = response.data.results;
+		console.log(items.length)
+		if(items.length > 0){
+			var obj = {}
+			obj[site] = {}
+			obj[site][platform] = items
+			var newState = Object.assign({}, this.state, obj)
+			this.setState(newState) 
+			//console.log("Response ",this.state)
+
 		}
+		
 	}
-	componentWillReceiveProps(){
-		if(this.props.reports){
-			if(this.props.reports.user_report){
-				if(this.props.reports.user_report[this.props.platform]){
-					console.log("Yes rp ", this.props.reports.user_report[this.props.platform])
-					
-					if(this.props.reports.user_report[this.props.platform].data){
-						console.log("Data rp ", this.props.reports.user_report[this.props.platform].data)
-					}
-				}
-			}
-		}
+	renderItem(item){
+		return (
+			<tr key={item.id}>
+				<td>{item.user_agent}</td>
+				<td>{item.count}</td>
+				<td>{item.count}</td>
+			</tr>
+			)
+
 	}
-	renderItem(){
-		console.log("Render ",this.props.reports)
-		if(this.props.reports){
-			if(this.props.reports.user_report){
-				if(this.props.reports.user_report[this.props.platform]){
-					console.log("Yes ", this.props.reports.user_report[this.props.platform])
-					
-					if(this.props.reports.user_report[this.props.platform].data){
-						console.log("Data ", this.props.reports.user_report[this.props.platform].data)
-					}
-				}
+	renderItems(site, platform){
+		if(this.state[site]){
+			if(this.state[site][platform] && this.state[site][platform].length > 0 ){
+				return (
+					this.state[site][platform].map((item) => {
+						return this.renderItem(item)
+					})
+					)
+
 			}
 		}
+		
 	}
 	render(){
-		if(this.props.reports){
-			if(this.props.reports.user_report){
-				if(this.props.reports.user_report[this.props.platform]){
-					console.log("Yes render ", this.props.reports.user_report[this.props.platform])
-					
-					if(this.props.reports.user_report[this.props.platform].data){
-						console.log("Data render ", this.props.reports.user_report[this.props.platform].data)
-					}
-				}
-			}
-		}
+		
 		
 		return (
 			<div>
@@ -84,7 +74,7 @@ class ReportClient extends Component{
 			  		</tr>
 			  	</thead>
 			  	<tbody>
-			  		{this.renderItem()}
+			  		{this.renderItems(this.props.site,this.props.platform)}
 
 			  	</tbody>
 			  </table>
