@@ -4,8 +4,9 @@ axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 
-export  function fetchReportsIp(site,platform){
-	const request = axios.get('/api/reports/ip_reports/'+platform+'/?site_id='+site);
+export  function fetchReportsIp(site,platform, callback, it){
+	const request = axios.get('/api/reports/ip_reports/'+platform+'/?site_id='+site)
+	.then(response => callback(response,it, site, platform));
 	return {
 		type: FETCH_IP_REPORT,
 		payload: request,
