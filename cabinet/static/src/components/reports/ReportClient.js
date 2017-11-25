@@ -42,7 +42,7 @@ class ReportClient extends Component{
 			<tr key={item.id}>
 				<td>{item.user_agent}</td>
 				<td>{item.count}</td>
-				<td>{item.count}</td>
+				<td>{item.distinct_ip}</td>
 			</tr>
 			)
 

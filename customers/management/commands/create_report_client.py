@@ -36,11 +36,13 @@ class Command(BaseCommand):
                             href  = i['href']
                         else:
                             href  = ''
-                        report.user_agent = i['user_agent']
+                        user_agent = i['user_agent']
+                        user_agent = user_agent[0:250]
+                        report.user_agent = user_agent
                         report.save()
                         iri, created = UserReportItem.objects.get_or_create(user_report=report,
                                                                 date=i['date'],
-                                                                user_agent=i['user_agent'],
+                                                                user_agent=user_agent,
                                                                 href=href,
                                                                 referer=referer,
                                                                 ip=i['ip'])
@@ -62,9 +64,13 @@ class Command(BaseCommand):
                             href  = i['href']
                         else:
                             href  = ''
+                        user_agent = i['user_agent']
+                        user_agent = user_agent[0:250]
+                        report.user_agent = user_agent
+                        report.save()
                         iri, created = UserReportItem.objects.get_or_create(user_report=report,
                                                                 date=i['date'],
-                                                                user_agent=i['user_agent'],
+                                                                user_agent=user_agent,
                                                                 href=href,
                                                                 referer=referer,
                                                                 ip=i['ip'])
@@ -76,6 +82,7 @@ class Command(BaseCommand):
             r.count = c
             print(c)
             d = UserReportItem.objects.filter(user_report=r).values('ip').distinct().count()
+            print("un " + str(d))
             r.distinct_ip = d
             r.save()
 

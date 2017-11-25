@@ -36,9 +36,11 @@ class Command(BaseCommand):
                             href  = i['href']
                         else:
                             href  = ''
+                        user_agent = i['user_agent']
+                        user_agent = user_agent[0:250]
                         iri, created = IpReportItem.objects.get_or_create(ip_report=report,
                                                                 date=i['date'],
-                                                                user_agent=i['user_agent'],
+                                                                user_agent=user_agent,
                                                                 href=href,
                                                                 user=i['adv_user'],
                                                                 referer=referer)
@@ -60,9 +62,11 @@ class Command(BaseCommand):
                             href  = i['href']
                         else:
                             href  = ''
+                        user_agent = i['user_agent']
+                        user_agent = user_agent[0:250]
                         iri, created = IpReportItem.objects.get_or_create(ip_report=report,
                                                                 date=i['date'],
-                                                                user_agent=i['user_agent'],
+                                                                user_agent=user_agent,
                                                                 href=href,
                                                                 user=i['adv_user'],
                                                                 referer=referer)
@@ -73,5 +77,6 @@ class Command(BaseCommand):
             r.count = c
             print(c)
             d = IpReportItem.objects.filter(ip_report=r).values('user').distinct().count()
-            r.distinct_ip = d
+            r.distinct_user_agents = d
+            print("un " + str(d))
             r.save()
