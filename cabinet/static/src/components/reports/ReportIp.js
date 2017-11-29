@@ -43,6 +43,7 @@ class ReportIp extends Component{
 				<td>{item.ip}</td>
 				<td>{item.count}</td>
 				<td>{item.distinct_user_agents}</td>
+				<td>{item.distinct_cookie}</td>
 			</tr>
 			)
 
@@ -71,6 +72,7 @@ class ReportIp extends Component{
 			  			<td>IP</td>
 			  			<td>Количество посещений</td>
 			  			<td>Уникальных браузеров</td>
+			  			<td>Уникальных кук</td>
 			  		</tr>
 			  	</thead>
 			  	<tbody>

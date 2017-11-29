@@ -24,6 +24,10 @@ class IpReport(BaseModel):
                             default=0,
                             null=True,
                             blank=True)
+    distinct_cookie = models.IntegerField('Distinct cookie',
+                            default=0,
+                            null=True,
+                            blank=True)
     class Meta:
         ordering = ['-count',]
 

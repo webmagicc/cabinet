@@ -57155,6 +57155,11 @@ var ReportIp = function (_Component) {
 					'td',
 					null,
 					item.distinct_user_agents
+				),
+				_react2.default.createElement(
+					'td',
+					null,
+					item.distinct_cookie
 				)
 			);
 		}
@@ -57201,6 +57206,11 @@ var ReportIp = function (_Component) {
 								'td',
 								null,
 								'\u0423\u043D\u0438\u043A\u0430\u043B\u044C\u043D\u044B\u0445 \u0431\u0440\u0430\u0443\u0437\u0435\u0440\u043E\u0432'
+							),
+							_react2.default.createElement(
+								'td',
+								null,
+								'\u0423\u043D\u0438\u043A\u0430\u043B\u044C\u043D\u044B\u0445 \u043A\u0443\u043A'
 							)
 						)
 					),

@@ -77,6 +77,8 @@ class Command(BaseCommand):
             r.count = c
             print(c)
             d = IpReportItem.objects.filter(ip_report=r).values('user').distinct().count()
-            r.distinct_user_agents = d
+            r.distinct_cookie = d
+            s = IpReportItem.objects.filter(ip_report=r).values('user_agent').distinct().count()
+            r.distinct_user_agents = s
             print("un " + str(d))
             r.save()
